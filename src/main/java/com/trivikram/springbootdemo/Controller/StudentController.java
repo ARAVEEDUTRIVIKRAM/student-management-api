@@ -4,6 +4,7 @@ package com.trivikram.springbootdemo.Controller;
 import com.trivikram.springbootdemo.dto.StudentRequestDTO;
 import com.trivikram.springbootdemo.dto.StudentResponseDTO;
 import com.trivikram.springbootdemo.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentResponseDTO create(@RequestBody StudentRequestDTO dto){
+    public StudentResponseDTO create(@Valid @RequestBody StudentRequestDTO dto){
         return service.createStudent(dto);
     }
 

@@ -5,6 +5,7 @@ import com.trivikram.springbootdemo.dto.StudentRequestDTO;
 import com.trivikram.springbootdemo.dto.StudentResponseDTO;
 import com.trivikram.springbootdemo.entity.Book;
 import com.trivikram.springbootdemo.entity.Student;
+import com.trivikram.springbootdemo.exception.StudentNotFoundException;
 import com.trivikram.springbootdemo.repository.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -71,8 +72,9 @@ public class StudentService {
         return convertToResponse(saved);
     }
     // READ ( TO GET )
+    // We written our own custom msg when id not found insted of inbult java error msges like NullPointerexception
     public StudentResponseDTO getStudent(Long id){
-        Student student = studentRepository.findById(id).orElseThrow();
+        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("student with id" + id + "not found"));
         return convertToResponse(student);
     }
 
